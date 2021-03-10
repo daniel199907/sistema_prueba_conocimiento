@@ -3,14 +3,16 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Usuario
  *
- * @ORM\Table(name="usuario", indexes={@ORM\Index(name="fk_usuario_acceso1_idx", columns={"acceso_idacceso"}), @ORM\Index(name="idperfil_idx", columns={"perfil"})})
+ * @ORM\Table(name="usuario", uniqueConstraints={@ORM\UniqueConstraint(name="usuario", columns={"usuario"})}, indexes={@ORM\Index(name="idperfil_idx", columns={"perfil"})})
  * @ORM\Entity
  */
-class Usuario
+class Usuario implements UserInterface, \Serializable
 {
     /**
      * @var int
@@ -50,14 +52,18 @@ class Usuario
     private $acceso;
 
     /**
-     * @var \Acceso
+     * @var string
      *
-     * @ORM\ManyToOne(targetEntity="Acceso")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="acceso_idacceso", referencedColumnName="idacceso")
-     * })
+     * @ORM\Column(name="usuario", type="string", length=12, nullable=false)
      */
-    private $accesoIdacceso;
+    private $usuario;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contrasenia", type="string", length=15, nullable=false)
+     */
+    private $contrasenia;
 
     /**
      * @var \Perfil
@@ -122,14 +128,26 @@ class Usuario
         return $this;
     }
 
-    public function getAccesoIdacceso(): ?Acceso
+    public function getUsuario(): ?string
     {
-        return $this->accesoIdacceso;
+        return $this->usuario;
     }
 
-    public function setAccesoIdacceso(?Acceso $accesoIdacceso): self
+    public function setUsuario(string $usuario): self
     {
-        $this->accesoIdacceso = $accesoIdacceso;
+        $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    public function getContrasenia(): ?string
+    {
+        return $this->contrasenia;
+    }
+
+    public function setContrasenia(string $contrasenia): self
+    {
+        $this->contrasenia = $contrasenia;
 
         return $this;
     }
@@ -147,4 +165,46 @@ class Usuario
     }
 
 
+    public function getRoles()
+    {
+        return ([$this->getPerfil()->getDescripcion()]);
+    }
+
+    public function getPassword()
+    {
+        // TODO: Implement getPassword() method.
+    }
+
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
+    }
+
+    public function getUsername()
+    {
+        // TODO: Implement getUsername() method.
+    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+
+    public function serialize()
+    {
+        return serialize([
+            $this->idusuario,
+            $this->usuario,
+            $this->contrasenia
+        ]);
+    }
+
+    public function unserialize($serialized)
+    {
+        list(
+            $this->idusuario,
+            $this->usuario,
+            $this->contrasenia
+            ) = unserialize($serialized, ['allowe_classes' => false]);
+    }
 }

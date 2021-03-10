@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Dashboard Gestor{% endblock %}
+{% block title %}Dashboard Admin{% endblock %}
 
 {% block body %}
     <div id="page-top">
@@ -16,23 +16,11 @@
                     <div class="sidebar-brand-icon rotate-n-15">
                         <i class="fas fa-laugh-wink"></i>
                     </div>
-                    <div class="sidebar-brand-text mx-3">Gestor</div>
+                    <div class="sidebar-brand-text mx-3">Admin</div>
                 </a>
 
                 <!-- Divider -->
                 <hr class="sidebar-divider my-0">
-
-                <!-- Nav Item - Dashboard -->
-                <li class="nav-item">
-                    <a class="nav-link">
-                        <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span>Dashboard</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link">
-                        <i class="fas fa-file"></i>
-                        <span>Reportes</span></a>
-                </li>
             </ul>
             <!-- End of Sidebar -->
 
@@ -81,7 +69,7 @@
                     <div class="container-fluid">
 
                         <!-- Page Heading -->
-                        <h1 class="h3 mb-4 text-gray-800">Bandeja de productos</h1>
+                        <h1 class="h3 mb-4 text-gray-800">Reportes CVS</h1>
                         {% for message in app.flashes('success') %}
                             <div class="alert alert-success">
                                 {{ message }}
@@ -92,46 +80,76 @@
                                 {{ message }}
                             </div>
                         {% endfor %}
-                        <div class="col-md-12">
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th scope="col">#ID</th>
-                                    <th scope="col">Nombre del producto</th>
-                                    <th scope="col">Categoría</th>
-                                    <th scope="col">Sucursal</th>
-                                    <th scope="col">Acciones</th>
-                                </tr>
-                                </thead>
-                                <tbody id="table">
-                                {% for producto in productos %}
-                                    <tr>
-                                        <th scope="row">{{ producto.idproducto }}</th>
-                                        <td>{{ producto.nombre }}</td>
-                                        <td>{{ producto.getCategoriaIdcategoria.getDescripcion }}</td>
-                                        <td>{{ producto.getSucursalIdsucursal.getDescripcion }}</td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <form action="{{ path('product_information') }}">
-                                                        <input type="hidden" name="id" id="id"
-                                                               value="{{ producto.idproducto }}">
-                                                        <button type="submit" class="btn btn-warning">Editar</button>
-                                                    </form>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a href="{{ path('cvs') }}">
+                                    <button class="btn btn-primary">Reporte CVS</button>
+                                </a>
+                            </div>
+                            <div class="col-md-6">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#exampleModal">
+                                    Reporte CVS Fecha
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Reporte CVS rango de
+                                                    fechas</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form action="{{ path('cvsdates') }}">
+                                                <div class="modal-body">
+                                                    <div class="form-row">
+                                                        <div class="col-md-6">
+                                                            <label for="fechaInicio">Fecha de:</label>
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inputGroupPrepend2"><i
+                                                            class="fas fa-calendar"></i></span>
+                                                                </div>
+                                                                <input type="date"
+                                                                       class="form-control"
+                                                                       id="fechaInicio" name="fechaInicio" required/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="fechaFin">Fecha a:</label>
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inputGroupPrepend3"><i
+                                                            class="fas fa-calendar"></i></span>
+                                                                </div>
+                                                                <input type="date"
+                                                                       class="form-control"
+                                                                       id="fechaFin" name="fechaFin" required/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <button onclick="deleteProduct({{ producto.idproducto }}, this)"
-                                                            class="btn btn-danger">Eliminar
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">
+                                                        Cerrar
+                                                    </button>
+                                                    <button type="submit" class="btn btn-primary">Buscar registros
                                                     </button>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
                     </div>
                     <!-- /.container-fluid -->
 
@@ -180,3 +198,4 @@
         </div>
     </div>
 {% endblock %}
+

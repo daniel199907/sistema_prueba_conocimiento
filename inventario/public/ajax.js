@@ -31,14 +31,6 @@ function deleteProduct(id, e) {
                     }
                 }
             });
-
-
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-            Swal.fire(
-                'Cancelled',
-                'Your imaginary file is safe :)',
-                'error'
-            )
         }
     })
 }

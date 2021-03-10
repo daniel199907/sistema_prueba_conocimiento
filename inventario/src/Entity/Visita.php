@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Visita
  *
- * @ORM\Table(name="visita", indexes={@ORM\Index(name="fk_visita_acceso1_idx", columns={"acceso_idacceso"})})
+ * @ORM\Table(name="visita", indexes={@ORM\Index(name="fk_visita_usuario1_idx", columns={"usuario_idusuario"})})
  * @ORM\Entity
  */
 class Visita
@@ -29,14 +29,14 @@ class Visita
     private $inicioSesionFecha;
 
     /**
-     * @var \Acceso
+     * @var \Usuario
      *
-     * @ORM\ManyToOne(targetEntity="Acceso")
+     * @ORM\ManyToOne(targetEntity="Usuario")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="acceso_idacceso", referencedColumnName="idacceso")
+     *   @ORM\JoinColumn(name="usuario_idusuario", referencedColumnName="idusuario")
      * })
      */
-    private $accesoIdacceso;
+    private $usuarioIdusuario;
 
     public function getIdvisitas(): ?int
     {
@@ -55,14 +55,14 @@ class Visita
         return $this;
     }
 
-    public function getAccesoIdacceso(): ?Acceso
+    public function getUsuarioIdusuario(): ?Usuario
     {
-        return $this->accesoIdacceso;
+        return $this->usuarioIdusuario;
     }
 
-    public function setAccesoIdacceso(?Acceso $accesoIdacceso): self
+    public function setUsuarioIdusuario(?Usuario $usuarioIdusuario): self
     {
-        $this->accesoIdacceso = $accesoIdacceso;
+        $this->usuarioIdusuario = $usuarioIdusuario;
 
         return $this;
     }

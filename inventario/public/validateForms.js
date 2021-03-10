@@ -66,3 +66,28 @@ function validacionProductoEditar() {
         return false;
     }
 }
+
+function validateLogin() {
+    let usuario = document.getElementById('_username').value;
+    let contrasenia = document.getElementById('_password').value;
+    if (usuario == null || usuario.length === 0 || /^\s+$/.test(usuario)) {
+        alert('Ingresa el usuario por favor.');
+        return false;
+    }
+    if (usuario.length > 12) {
+        alert('Ingresa hasta 12 caracteres en usuario por favor.');
+        return false;
+    }
+    if (contrasenia == null || contrasenia.length === 0 || /^\s+$/.test(contrasenia)) {
+        alert('Ingresa la contraseña por favor.');
+        return false;
+    }
+    if (contrasenia.length > 15) {
+        alert('Ingresa hasta 15 caracteres en contraseña por favor.');
+        return false;
+    }
+    if (contrasenia.length < 10) {
+        alert('Ingresa de 10 a 15 caracteres en contraseña por favor.');
+        return false;
+    }
+}

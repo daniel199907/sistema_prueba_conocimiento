@@ -28,36 +28,21 @@ class Sucursal
      */
     private $descripcion;
 
-    /**
-     * @return int
-     */
-    public function getIdsucursal(): int
+    public function getIdsucursal(): ?int
     {
         return $this->idsucursal;
     }
 
-    /**
-     * @param int $idsucursal
-     */
-    public function setIdsucursal(int $idsucursal): void
-    {
-        $this->idsucursal = $idsucursal;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescripcion(): string
+    public function getDescripcion(): ?string
     {
         return $this->descripcion;
     }
 
-    /**
-     * @param string $descripcion
-     */
-    public function setDescripcion(string $descripcion): void
+    public function setDescripcion(string $descripcion): self
     {
         $this->descripcion = $descripcion;
+
+        return $this;
     }
 
 
