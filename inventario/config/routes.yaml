@@ -1,0 +1,3 @@
+#registrar_producto:
+#    path: /dashboard/registrar_producto
+#    controller: App\Controller\DashboardCapturistaController::registrarProducto
