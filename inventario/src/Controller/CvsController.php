@@ -22,7 +22,7 @@ class CvsController extends AbstractController
         $query = "SELECT idproducto, nombre, producto.descripcion,
                 precio, producto.fecha, sucursal.descripcion as sucursal, categoria.descripcion as categoria, 
                 estado.descripcion as estado, producto.ultima_modificacion, comentario FROM inventario.producto
-                INNER JOIN sucursal on sucursal.idsucursal=idsucursal  
+                INNER JOIN sucursal on sucursal.idsucursal=producto.sucursal_idsucursal    
                 INNER JOIN categoria on categoria_idcategoria=idcategoria
                 INNER JOIN estado on producto.estado_idestados=idestados
                 WHERE fecha GROUP BY idproducto";
@@ -54,7 +54,7 @@ class CvsController extends AbstractController
         $query = "SELECT idproducto, nombre, producto.descripcion,
                 precio, producto.fecha, sucursal.descripcion as sucursal, categoria.descripcion as categoria, 
                 estado.descripcion as estado, producto.ultima_modificacion, comentario FROM inventario.producto
-                INNER JOIN sucursal on sucursal.idsucursal=idsucursal  
+                INNER JOIN sucursal on sucursal.idsucursal=producto.sucursal_idsucursal   
                 INNER JOIN categoria on categoria_idcategoria=idcategoria
                 INNER JOIN estado on producto.estado_idestados=idestados
                 WHERE fecha BETWEEN :fechaInicio AND :fechaFin GROUP BY idproducto";
